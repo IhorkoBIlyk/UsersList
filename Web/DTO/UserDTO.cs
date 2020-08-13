@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace UsersList.Common.DataTransferObjects.User
+namespace Web.DTO
 {
-    public class UserModel
+    public class UserDTO
     {
         public int Id { get; set; }
 

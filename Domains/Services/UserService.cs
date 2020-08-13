@@ -1,5 +1,4 @@
-﻿using UsersList.Common.DataTransferObjects.User;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +19,7 @@ namespace UsersList.Services
 
         public Task<int> Create(User newUser)
         {
-            return PostAsync<int, User>("", newUser);
+            return PostAsync<int, User>("create", newUser);
         }
 
         public Task<IEnumerable<User>> Get()
@@ -33,14 +32,18 @@ namespace UsersList.Services
             return GetAsync<User>($"/{id}");
         }
 
-        public Task<int> Edit(User user)
+        public Task<bool> Edit(User user)
         {
-            return PutAsync<int, User>("", user);
+            return PutAsync<bool, User>("edit", user);
         }
 
         public Task<int> Delete(int id)
         {
             return DeleteAsync<int>($"/{id}");
+        }
+        public Task<int> DeleteRange(IEnumerable<User> users)
+        {
+            return DeleteAsync<int, IEnumerable<User>>(users);
         }
     }
 }

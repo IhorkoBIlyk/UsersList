@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using UsersList.Common.Models.Entities;
+using Web.Models;
 
-namespace Web.Models
+namespace Web.Data
 {
     public class ApplicationContext : DbContext
     {

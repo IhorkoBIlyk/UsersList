@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Schema;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -10,26 +12,25 @@ namespace UsersList.Common.Services
     public class BaseHttpService
     {
         protected HttpClient client;
-       // private string baseApiUri;
-        protected static string baseUsersListApiUri = "https://localhost:44387";
+        // private string baseApiUri;
+        protected static string baseUsersListApiUri = "https://10.0.2.2:44387";
 
         protected BaseHttpService(string baseApiUri)
         {
             HttpClientHandler clientHandler = new HttpClientHandler();
             clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
-
-            // Pass the handler to httpclient(from you are calling api)
             client = new HttpClient(clientHandler);
-            //this.baseApiUri = $"asdasdasdasdsadasd";
+
+            baseUsersListApiUri = $"{baseUsersListApiUri}/{baseApiUri}";
         }
 
         protected Task<T> GetAsync<T>(string requestUri)
         {
-            return SendAsync<T>(HttpMethod.Get, requestUri);
+            return SendAsync<T>(HttpMethod.Get, "get/" + requestUri);
         }
         protected Task<T> GetAsync<T>()
         {
-            return SendAsync<T>(HttpMethod.Get, "");
+            return SendAsync<T>(HttpMethod.Get, "get");
         }
 
         protected Task<T> PostAsync<T>(string requestUri)
@@ -59,12 +60,17 @@ namespace UsersList.Common.Services
             return SendAsync<T>(HttpMethod.Delete, requestUri);
         }
 
+        protected Task<T> DeleteAsync<T, K>(K obj)
+        {
+            string jsonRequest = obj != null ? JsonConvert.SerializeObject(obj) : null;
+            return SendAsync<T>(HttpMethod.Delete, "deleterange", jsonRequest);
+        }
+
 
         protected async Task<T> SendAsync<T>(HttpMethod requestType, string requestUri, string jsonRequest = null)
         {
             T result = default;
-            var uri = "https://10.0.2.2:44387/home";
-            HttpRequestMessage request = new HttpRequestMessage(requestType, new Uri(uri));
+            HttpRequestMessage request = new HttpRequestMessage(requestType, new Uri($"{baseUsersListApiUri}/{requestUri}"));
 
             if (jsonRequest != null)
             {
@@ -92,13 +98,26 @@ namespace UsersList.Common.Services
             {
                 result = (T)Convert.ChangeType(json, typeof(T));
             }
-            else if (!string.IsNullOrEmpty(json))
+            else if (ValidateJSON(json))
             {
                 result = JsonConvert.DeserializeObject<T>(json);
             }
 
             return result;
         }
-        
+
+        public bool ValidateJSON(string s)
+        {
+            try
+            {
+                JToken.Parse(s);
+                return true;
+            }
+            catch (JsonReaderException ex)
+            {
+                return false;
+            }
+        }
+
     }
 }

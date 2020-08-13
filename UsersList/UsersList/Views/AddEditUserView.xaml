@@ -7,8 +7,8 @@
              x:Class="UsersList.Forms.Views.AddEditUserView">
     <ContentPage.Content>
         <StackLayout Margin="20">
-            <Entry Placeholder="Name"
-                HeightRequest="100" />
+            <Entry x:Name="name" Placeholder="Enter name"
+            HeightRequest="100" />
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />

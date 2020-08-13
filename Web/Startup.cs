@@ -11,7 +11,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Web.Data;
+using Web.Data.Repositories;
 using Web.Models;
+using Web.Service;
+using Web.Service.Interfaces;
 
 namespace Web
 {
@@ -27,12 +31,21 @@ namespace Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // получаем строку подключения из файла конфигурации
             string connection = Configuration.GetConnectionString("DefaultConnection");
-            // добавляем контекст MobileContext в качестве сервиса в приложение
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(connection));
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IUserRepository, UserRepository>();
             services.AddControllersWithViews();
+            services.AddMvc(option => option.EnableEndpointRouting = false);
+                        
+            services.AddScoped<IUnitOfWork, UnitOfWork>(servicesProvider =>
+            {
+                ApplicationContext context = servicesProvider.GetRequiredService<ApplicationContext>();
+                UnitOfWork unitOfWork = new UnitOfWork(context);
+                unitOfWork.RegisterRepositoriesFromAssembly(typeof(IGenericRepository<,>).Assembly);
+                return unitOfWork;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,14 +57,15 @@ namespace Web
             }
 
             app.UseHttpsRedirection();
-
-            app.UseRouting();
+            
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
+            app.UseMvc(routes =>
             {
-                endpoints.MapControllers();
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller}/{action}/{id?}");
             });
         }
     }

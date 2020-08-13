@@ -11,7 +11,8 @@ namespace UsersList.Services
         Task<IEnumerable<User>> Get();
         Task<User> Get(int id);
         Task<int> Create(User item);
-        Task<int> Edit(User item);
+        Task<bool> Edit(User item);
         Task<int> Delete(int id);
+        Task<int> DeleteRange(IEnumerable<User> users);
     }
 }
