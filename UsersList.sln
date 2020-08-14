@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersList.Android", "UsersList\UsersList.Android\UsersList.Android.csproj", "{DA2BE28B-60AE-452D-AC62-A4C042F4B0CC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersList.Android", "UsersList.Android\UsersList.Android.csproj", "{DA2BE28B-60AE-452D-AC62-A4C042F4B0CC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsersList.Forms", "UsersList\UsersList\UsersList.Forms.csproj", "{3345EE70-B052-45E2-BA3F-BDE51A4B2498}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsersList.Forms", "UsersList.Forms\UsersList.Forms.csproj", "{3345EE70-B052-45E2-BA3F-BDE51A4B2498}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersList.Common", "Domains\UsersList.Common.csproj", "{37069C84-1A63-41B6-8FAA-9AF7A9C9DF29}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersList.Common", "UsersList.Common\UsersList.Common.csproj", "{37069C84-1A63-41B6-8FAA-9AF7A9C9DF29}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{41D205B1-4004-478E-8AA3-82F9E24D0AAF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersList.Web", "UsersList.Web\Web.csproj", "{41D205B1-4004-478E-8AA3-82F9E24D0AAF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
