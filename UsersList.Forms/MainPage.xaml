@@ -40,17 +40,17 @@ WidthRequest="20"/>
             <Button Text="Add user"
                 VerticalOptions="CenterAndExpand"
                 HorizontalOptions="Center"
-                Clicked="OnCreateUserClicked" 
+                Clicked="OnCreateUserClicked" WidthRequest="200" 
                     Grid.Column="0" Grid.Row="1"/>
             <Button Text="Edit user"
                 VerticalOptions="CenterAndExpand"
                 HorizontalOptions="Center"
-                Clicked="OnEditUserClicked" 
+                Clicked="OnEditUserClicked" WidthRequest="200" 
                     Grid.Column="1" Grid.Row="1"/>
             <Button Text="Delete user(s)"
                 VerticalOptions="CenterAndExpand"
                 HorizontalOptions="Center"
-                Clicked="OnDeleteUserClicked" 
+                Clicked="OnDeleteUserClicked" WidthRequest="200" 
                     Grid.Column="2" Grid.Row="1"/>
         </Grid>
 
